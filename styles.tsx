@@ -7,4 +7,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  catimg: {
+    width: '80%',
+    height: '50%',
+    resizeMode: 'contain',
+  },
 });
