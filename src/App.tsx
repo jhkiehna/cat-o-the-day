@@ -1,46 +1,22 @@
 import React from 'react';
-import * as Notifications from 'expo-notifications';
 import { registerRootComponent } from 'expo';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View, Button, Platform } from 'react-native';
+import { Text, View, Button } from 'react-native';
 
 import { styles } from 'styles';
 import { ImageContainer } from 'components/imageContainer';
-import { fetchCat, notify, registerForPushNotificationsAsync, sendPushNotification } from 'utils';
-
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
+import { fetchCat, notify, usePushNotifications } from 'utils';
 
 function App() {
   const [imageUri, setImageUri] = React.useState<string>(null);
-  const [expoPushToken, setExpoPushToken] = React.useState<string>(null);
-  const notificationListener = React.useRef<any>();
-  const responseListener = React.useRef<any>();
-
-  React.useEffect(() => {
-    if (Platform.OS !== 'web') registerForPushNotificationsAsync().then((token) => setExpoPushToken(token));
-
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };
-  }, []);
+  const expoPushToken = usePushNotifications();
 
   async function handleClick() {
     const imageUri = await fetchCat();
 
     if (imageUri) {
       setImageUri(imageUri);
-      notify('Got a Cat for the Day!');
-      sendPushNotification(expoPushToken, {
-        title: 'Got a Cat!',
-        body: "You've received your cat",
-      });
+      notify(expoPushToken, 'Got a Cat for the Day!');
     }
   }
 
