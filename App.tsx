@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button, ToastAndroid, Image } from 'react-native';
 
-import { styles } from './styles';
+import { styles } from 'src/styles';
 
 const pexelsApiKey = '563492ad6f917000010000017b40f39d8095444facc21e9d744ba5b0';
 
