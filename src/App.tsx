@@ -1,12 +1,13 @@
 import React from 'react';
+import { registerRootComponent } from 'expo';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button, ToastAndroid, Image } from 'react-native';
 
-import { styles } from 'src/styles';
+import { styles } from 'styles';
 
 const pexelsApiKey = '563492ad6f917000010000017b40f39d8095444facc21e9d744ba5b0';
 
-export default function App() {
+function App() {
   const [imageUri, setImageUri] = React.useState<string>(null);
 
   async function getCat() {
@@ -44,3 +45,5 @@ export default function App() {
     </View>
   );
 }
+
+registerRootComponent(App);
