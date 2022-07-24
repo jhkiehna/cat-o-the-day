@@ -7,9 +7,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  imagecontainer: {
-    flex: 1,
-  },
   catimg: {
     width: '80%',
     height: '50%',
