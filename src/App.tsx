@@ -19,6 +19,8 @@ function App() {
     console.log({ imageSrcs });
 
     setImages(imageSrcs);
+
+    if (!displayedImage) setDisplayedImage(imageSrcs[Math.floor(Math.random() * imageSrcs.length)]);
   }
 
   return (
