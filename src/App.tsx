@@ -2,11 +2,10 @@ import React from 'react';
 import { registerRootComponent } from 'expo';
 import { StatusBar } from 'expo-status-bar';
 import { Text, View, Button } from 'react-native';
-import { WebView } from 'react-native-webview';
 import { WebViewMessageEvent } from 'react-native-webview/lib/WebViewTypes';
 
 import { styles } from 'styles';
-import { ImageContainer } from 'components/imageContainer';
+import { ImageContainer, ImageScraper } from 'components';
 
 function App() {
   const [displayedImage, setDisplayedImage] = React.useState<string>(null);
@@ -25,12 +24,7 @@ function App() {
 
   return (
     <View style={styles.container}>
-      <WebView
-        style={{ display: 'none', width: 0, height: 0 }}
-        source={{ uri: 'https://www.google.com/search?q=cats&tbm=isch&tbs=isz:m' }}
-        injectedJavaScript={`(() => {let imageSrcs = []; window.document.querySelectorAll('img').forEach((img) => {imageSrcs = [...imageSrcs, img.src];});window.ReactNativeWebView.postMessage(JSON.stringify(imageSrcs));})()`}
-        onMessage={handleOnMessage}
-      />
+      <ImageScraper style={{ display: 'none', width: 0, height: 0 }} handleOnMessage={handleOnMessage} />
       <View>
         <Text>Cat-o-the-day App</Text>
         <Button
