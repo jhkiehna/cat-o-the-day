@@ -37,7 +37,16 @@ function App() {
   return (
     <View style={styles.container}>
       <ImageScraper style={{ display: 'none', width: 0, height: 0 }} handleOnMessage={handleOnMessage} />
-      <Text style={styles.header}>Cat-o-the-Day!!</Text>
+      <Text
+        style={styles.header}
+        numberOfLines={1}
+        allowFontScaling={true}
+        adjustsFontSizeToFit={true}
+        minimumFontScale={0.1}
+        suppressHighlighting={true}
+      >
+        Cat-o-the-Day!!
+      </Text>
       <Button title="Show Me Cat!!" onPress={handleClick} />
 
       {displayedImage ? <ImageContainer imageUri={displayedImage} /> : null}
