@@ -2,14 +2,17 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    padding: 0.5,
+    padding: 30,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'space-around',
+  },
+  header: {
+    fontSize: 20,
   },
   catimg: {
+    marginTop: 20,
+    flex: 1,
     width: '80%',
-    height: '50%',
-    resizeMode: 'contain',
+    height: 200,
   },
 });
