@@ -15,6 +15,15 @@ export const styles = StyleSheet.create({
     fontSize: 40,
     margin: 20,
   },
+  input: {
+    paddingHorizontal: 10,
+    marginBottom: 10,
+    minWidth: '50%',
+    borderWidth: 1,
+    borderColor: 'lightblue',
+    borderStyle: 'solid',
+    borderRadius: 3,
+  },
   catimg: {
     marginTop: 30,
     width: '80%',
