@@ -1,8 +1,11 @@
+import { Platform } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { WebViewMessageEvent } from 'react-native-webview/lib/WebViewTypes';
 
 export default function ImageScraper(props: { style: object; handleOnMessage: (event: WebViewMessageEvent) => void }) {
   const { style, handleOnMessage } = props;
+
+  if (Platform.OS === 'web') return null;
 
   return (
     <WebView
