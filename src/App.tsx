@@ -6,6 +6,7 @@ import { WebViewMessageEvent } from 'react-native-webview/lib/WebViewTypes';
 
 import { styles } from 'styles';
 import { ImageContainer, ImageScraper } from 'components';
+import { fetchCatsFallback } from 'utils';
 
 function App() {
   const [displayedImage, setDisplayedImage] = React.useState<string>(null);
@@ -22,16 +23,22 @@ function App() {
     if (!displayedImage) setDisplayedImage(imageSrcs[Math.floor(Math.random() * imageSrcs.length)]);
   }
 
+  async function handleClick() {
+    if (images.length) return setDisplayedImage(images[Math.floor(Math.random() * images.length)]);
+
+    const fallbackImages = await fetchCatsFallback();
+    setImages(fallbackImages);
+
+    if (!displayedImage && fallbackImages.length) {
+      setDisplayedImage(fallbackImages[Math.floor(Math.random() * fallbackImages.length)]);
+    }
+  }
+
   return (
     <View style={styles.container}>
       <ImageScraper style={{ display: 'none', width: 0, height: 0 }} handleOnMessage={handleOnMessage} />
-      <View>
-        <Text>Cat-o-the-day App</Text>
-        <Button
-          title="Show Me Cat!!"
-          onPress={() => setDisplayedImage(images[Math.floor(Math.random() * images.length)])}
-        />
-      </View>
+      <Text style={styles.header}>Cat-o-the-Day!!</Text>
+      <Button title="Show Me Cat!!" onPress={handleClick} />
 
       {displayedImage ? <ImageContainer imageUri={displayedImage} /> : null}
       <StatusBar style="auto" />
