@@ -11,7 +11,7 @@ export default function ImageContainer(props: { imageUri: string }) {
     <Image
       style={styles.catimg}
       source={{ uri: imageUri }}
-      onLoad={() => notify('Got a Cat for the Day!')}
+      // onLoad={() => notify('Got a Cat for the Day!')}
       resizeMode={'contain'}
     />
   );
