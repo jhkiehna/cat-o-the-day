@@ -1,4 +1,7 @@
+import { Platform } from 'react-native';
 import { StyleSheet } from 'react-native';
+
+const iOSFont = 'AvenirNext-Bold, Avenir Next, sans-serif-medium, sans-serif';
 
 export const styles = StyleSheet.create({
   container: {
@@ -7,11 +10,13 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header: {
-    fontSize: 20,
+    fontFamily: Platform.OS === 'ios' ? iOSFont : 'sans-serif',
+    fontWeight: 'bold',
+    fontSize: 40,
+    margin: 20,
   },
   catimg: {
-    marginTop: 20,
-    flex: 1,
+    marginTop: 30,
     width: '80%',
     height: 200,
   },
