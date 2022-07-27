@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
     padding: 30,
     backgroundColor: '#f1f1f1',
     alignItems: 'center',
+    height: '100%',
   },
   header: {
     fontFamily: Platform.OS === 'ios' ? iOSFont : 'sans-serif',
