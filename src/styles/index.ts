@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
   header: {
     fontFamily: Platform.OS === 'ios' ? iOSFont : 'sans-serif',
     fontWeight: 'bold',
-    fontSize: 40,
+    fontSize: 35,
     margin: 20,
   },
   input: {
