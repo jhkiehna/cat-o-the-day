@@ -57,13 +57,14 @@ function App() {
 
   function handleChangeText(text: string) {
     setInputText(text);
+    setImages([]);
     updateModifier(text);
   }
 
   return (
     <View style={styles.container}>
       <View style={{ display: 'none', width: 0, height: 0 }}>
-        <ImageScraper setImages={setImages} modifier={modifier} />
+        <ImageScraper setImages={setImages} modifier={modifier} images={images} />
       </View>
 
       <Text style={styles.header} suppressHighlighting={true}>
