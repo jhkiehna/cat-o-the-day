@@ -8,14 +8,15 @@ import { fetchCatsFallback } from 'utils';
 export default function ImageScraper(props: {
   setImages: React.Dispatch<React.SetStateAction<string[]>>;
   modifier: string;
+  images: string[];
 }) {
-  const { setImages, modifier } = props;
+  const { setImages, modifier, images } = props;
 
   function handleOnMessage(event: WebViewMessageEvent) {
     let imageSrcs = JSON.parse(event.nativeEvent.data) as string[];
     console.log({ imageSrcs });
 
-    setImages(imageSrcs);
+    if (!images.length) setImages(imageSrcs);
   }
 
   async function fetchCatsFallbackCaller() {
