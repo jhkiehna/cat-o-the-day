@@ -33,6 +33,7 @@ function App() {
   const [loading, setLoading] = React.useState<boolean>(true);
   const updateModifier = React.useCallback(
     debounce((text) => {
+      setLoading(true);
       setModifier(text);
     }, 500),
     [],
@@ -63,7 +64,6 @@ function App() {
   function handleChangeText(text: string) {
     setInputText(text);
     setImages([]);
-    setLoading(true);
     updateModifier(text);
   }
 
