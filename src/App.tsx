@@ -34,8 +34,9 @@ function App() {
   const updateModifier = React.useCallback(
     debounce((text) => {
       setLoading(true);
+      setImages([]);
       setModifier(text);
-    }, 500),
+    }, 1000),
     [],
   );
 
@@ -63,7 +64,6 @@ function App() {
 
   function handleChangeText(text: string) {
     setInputText(text);
-    setImages([]);
     updateModifier(text);
   }
 
