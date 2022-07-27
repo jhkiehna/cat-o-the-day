@@ -14,8 +14,6 @@ export default function ImageScraper(props: {
 
   function handleOnMessage(event: WebViewMessageEvent) {
     let imageSrcs = JSON.parse(event.nativeEvent.data) as string[];
-    console.log({ imageSrcs });
-
     if (!images.length) setImages(imageSrcs);
   }
 
