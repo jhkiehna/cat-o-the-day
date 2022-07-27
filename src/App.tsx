@@ -5,7 +5,7 @@ import { Text, View, Button, TextInput } from 'react-native';
 import { debounce, random } from 'lodash';
 
 import { styles } from 'styles';
-import { ImageContainer, ImageScraper } from 'components';
+import { ImageContainer, ImageScraper, LoadingSpinner } from 'components';
 
 const defaultModifiers = [
   'cute',
@@ -30,6 +30,7 @@ function App() {
   const [images, setImages] = React.useState<string[]>([]);
   const [inputText, setInputText] = React.useState<string>(initialModifier);
   const [modifier, setModifier] = React.useState<string>(initialModifier);
+  const [loading, setLoading] = React.useState<boolean>(true);
   const updateModifier = React.useCallback(
     debounce((text) => {
       setModifier(text);
@@ -48,7 +49,10 @@ function App() {
   }
 
   React.useEffect(() => {
-    if (images.length) setDisplayedImage(getRandomNewImage());
+    if (images.length) {
+      setDisplayedImage(getRandomNewImage());
+      setLoading(false);
+    }
   }, [images]);
 
   async function handleClick() {
@@ -59,6 +63,7 @@ function App() {
   function handleChangeText(text: string) {
     setInputText(text);
     setImages([]);
+    setLoading(true);
     updateModifier(text);
   }
 
@@ -76,7 +81,7 @@ function App() {
 
       <Button title="Show Me Cat!!" onPress={handleClick} />
 
-      {displayedImage ? <ImageContainer imageUri={displayedImage} /> : null}
+      {loading ? <LoadingSpinner /> : <ImageContainer imageUri={displayedImage} />}
 
       <StatusBar style="auto" />
     </View>
