@@ -40,26 +40,25 @@ function App() {
     [],
   );
 
-  function getRandomNewImage() {
-    let randomImage: string;
-
-    do {
-      randomImage = images[random(0, images.length - 1)];
-    } while (displayedImage === randomImage && displayedImage?.length);
-
-    return randomImage;
-  }
-
   React.useEffect(() => {
     if (images.length) {
-      setDisplayedImage(getRandomNewImage());
+      let randomImage: string;
+
+      do {
+        randomImage = images[random(0, images.length - 1)];
+      } while (displayedImage === randomImage && displayedImage?.length);
+
+      setDisplayedImage(randomImage);
       setLoading(false);
     }
   }, [images]);
 
   async function handleClick() {
     if (modifier !== inputText) return updateModifier.flush();
-    if (images.length) setDisplayedImage(getRandomNewImage());
+    if (images.length) {
+      const indexOfCurrentImage = images.findIndex((image) => image === displayedImage);
+      setDisplayedImage(images[indexOfCurrentImage + 1] ?? images[0]);
+    }
   }
 
   function handleChangeText(text: string) {
