@@ -6,7 +6,7 @@ const iOSFont = 'AvenirNext-Bold, Avenir Next, sans-serif-medium, sans-serif';
 export const styles = StyleSheet.create({
   container: {
     padding: 30,
-    backgroundColor: '#fff',
+    backgroundColor: '#f1f1f1',
     alignItems: 'center',
   },
   header: {
@@ -28,5 +28,9 @@ export const styles = StyleSheet.create({
     marginTop: 30,
     width: '80%',
     height: 200,
+  },
+  loadingSpinner: {
+    marginTop: 30,
+    maxHeight: 100,
   },
 });
