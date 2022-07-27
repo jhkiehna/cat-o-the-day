@@ -42,13 +42,7 @@ function App() {
 
   React.useEffect(() => {
     if (images.length) {
-      let randomImage: string;
-
-      do {
-        randomImage = images[random(0, images.length - 1)];
-      } while (displayedImage === randomImage && displayedImage?.length);
-
-      setDisplayedImage(randomImage);
+      setDisplayedImage(images[random(0, images.length - 1)]);
       setLoading(false);
     }
   }, [images]);
