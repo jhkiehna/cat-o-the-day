@@ -58,7 +58,7 @@ function App() {
   }, [images]);
 
   async function handleClick() {
-    if (modifier !== inputText) updateModifier.flush();
+    if (modifier !== inputText) return updateModifier.flush();
     if (images.length) setDisplayedImage(getRandomNewImage());
   }
 
