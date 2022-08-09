@@ -1,7 +1,10 @@
 import { Image } from 'react-native';
-
-import { styles } from 'styles';
+import { useTailwind } from 'tailwind-rn';
 
 export default function LoadingSpinner() {
-  return <Image style={styles.loadingSpinner} source={require('images/cat_spin_dribble.gif')} resizeMode={'contain'} />;
+  const tailwind = useTailwind();
+
+  return (
+    <Image style={tailwind('w-full h-full')} source={require('images/cat_spin_dribble.gif')} resizeMode={'contain'} />
+  );
 }
