@@ -1,9 +1,9 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { View, SafeAreaView, Button, TextInput, Image } from 'react-native';
+import { View, SafeAreaView, TextInput, Image } from 'react-native';
 import { useTailwind } from 'tailwind-rn';
 
-import { AppTitle, ImageScraper, LoadingSpinner } from 'components';
+import { AppTitle, ImageScraper, LoadingSpinner, CatButton } from 'components';
 
 const defaultModifiers = [
   'cute',
@@ -31,7 +31,7 @@ const defaultModifiers = [
   'sneaky',
 ];
 
-export default function Home() {
+const Home: React.FC = () => {
   const initialModifier = defaultModifiers[Math.floor(Math.random() * defaultModifiers.length)];
 
   const [displayedImage, setDisplayedImage] = React.useState<string>(null);
@@ -39,6 +39,7 @@ export default function Home() {
   const [inputText, setInputText] = React.useState<string>(initialModifier);
   const [modifier, setModifier] = React.useState<string>(initialModifier);
   const [loading, setLoading] = React.useState<boolean>(true);
+  const inputRef = React.useRef<TextInput>();
 
   const tailwind = useTailwind();
 
@@ -50,17 +51,22 @@ export default function Home() {
   }, [images]);
 
   async function handleClick() {
-    if (modifier !== inputText) {
-      setLoading(true);
-      setImages([]);
-      setModifier(inputText);
-      return;
-    }
+    // Triggers a refetching of images if text input has changed.
+    if (modifier !== inputText) return handleSubmit();
 
+    // Iterates through array of available images and displays the next one.
     if (images.length) {
       const indexOfCurrentImage = images.findIndex((image) => image === displayedImage);
       setDisplayedImage(images[indexOfCurrentImage + 1] ?? images[0]);
     }
+  }
+
+  // Resets images and modifier, which triggers a refetching of images from the scraper.
+  async function handleSubmit() {
+    setLoading(true);
+    setImages([]);
+    setModifier(inputText);
+    inputRef.current.blur();
   }
 
   return (
@@ -68,6 +74,7 @@ export default function Home() {
       <View style={{ display: 'none', width: 0, height: 0 }}>
         <ImageScraper setImages={setImages} modifier={modifier} images={images} />
       </View>
+
       <AppTitle text="Cat-o-the-Day!!" />
 
       <View style={tailwind('h-1/2 flex justify-center')}>
@@ -79,16 +86,21 @@ export default function Home() {
       </View>
 
       <TextInput
+        ref={inputRef}
         style={tailwind('self-center w-1/2 border border-solid border-sky-500 rounded py-1 px-2')}
         value={inputText}
         onChangeText={(text) => setInputText(text)}
-        onEndEditing={handleClick}
-        onSubmitEditing={handleClick}
+        onEndEditing={handleSubmit}
+        onSubmitEditing={handleSubmit}
       />
 
-      <Button title="Show Me Cat!!" onPress={handleClick} />
+      <View style={tailwind('self-center w-1/2 border border-solid border-sky-500 rounded')}>
+        <CatButton text="Show Me Cat!!" onPress={handleClick} />
+      </View>
 
       <StatusBar style="auto" />
     </SafeAreaView>
   );
-}
+};
+
+export default Home;
