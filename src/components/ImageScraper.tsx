@@ -5,13 +5,13 @@ import { WebViewMessageEvent } from 'react-native-webview/lib/WebViewTypes';
 
 import { fetchCatsFallback } from 'utils';
 
-export default function ImageScraper(props: {
+type ImageScraperProps = {
   setImages: React.Dispatch<React.SetStateAction<string[]>>;
   modifier: string;
   images: string[];
-}) {
-  const { setImages, modifier, images } = props;
+};
 
+const ImageScraper: React.FC<ImageScraperProps> = ({ setImages, modifier, images }) => {
   function handleOnMessage(event: WebViewMessageEvent) {
     let imageSrcs = JSON.parse(event.nativeEvent.data) as string[];
     if (!images.length) setImages(imageSrcs);
@@ -36,4 +36,6 @@ export default function ImageScraper(props: {
       onError={(event) => console.error(event.nativeEvent)}
     />
   );
-}
+};
+
+export default ImageScraper;
