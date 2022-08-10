@@ -31,7 +31,6 @@ const CatButton: React.FC<CatButtonProps> = ({ text, onPress }) => {
           source={require('images/cat-paw-vector-19.png')}
           style={tailwind('absolute top-0 left-0 w-2/3 h-full opacity-50')}
           resizeMode="cover"
-          blurRadius={2}
         />
         <ImageBackground
           source={require('images/cat-paw-vector-19.png')}
@@ -40,7 +39,6 @@ const CatButton: React.FC<CatButtonProps> = ({ text, onPress }) => {
             transform: [{ scaleX: -1 }, { scaleY: -1 }],
           }}
           resizeMode="cover"
-          blurRadius={2}
         />
         <Text
           style={{
