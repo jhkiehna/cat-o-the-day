@@ -1,12 +1,12 @@
+import React from 'react';
 import { Text, Platform } from 'react-native';
 import { useTailwind } from 'tailwind-rn';
 
 const iOSFont = 'AvenirNext-Bold, Avenir Next, sans-serif-medium, sans-serif';
 const fontFamily = Platform.OS === 'ios' ? iOSFont : 'sans-serif';
 
-export default function AppTitle(props: { text: string }) {
+const AppTitle: React.FC<{ text: string }> = ({ text }) => {
   const tailwind = useTailwind();
-  const { text } = props;
 
   return (
     <Text
@@ -19,4 +19,6 @@ export default function AppTitle(props: { text: string }) {
       {text}
     </Text>
   );
-}
+};
+
+export default AppTitle;
