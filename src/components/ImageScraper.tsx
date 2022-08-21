@@ -8,13 +8,12 @@ import { fetchCatsFallback } from 'utils';
 type ImageScraperProps = {
   setImages: React.Dispatch<React.SetStateAction<string[]>>;
   modifier: string;
-  images: string[];
 };
 
-const ImageScraper: React.FC<ImageScraperProps> = ({ setImages, modifier, images }) => {
+const ImageScraper: React.FC<ImageScraperProps> = ({ setImages, modifier }) => {
   function handleOnMessage(event: WebViewMessageEvent) {
-    let imageSrcs = JSON.parse(event.nativeEvent.data) as string[];
-    if (!images.length) setImages(imageSrcs);
+    if (event.nativeEvent.loading) return;
+    setImages(JSON.parse(event.nativeEvent.data));
   }
 
   async function fetchCatsFallbackCaller() {
@@ -31,7 +30,15 @@ const ImageScraper: React.FC<ImageScraperProps> = ({ setImages, modifier, images
   return (
     <WebView
       source={{ uri: `https://www.google.com/search?q=cats${modifier ? `+${modifier}` : ''}&tbm=isch&tbs=isz:m` }}
-      injectedJavaScript={`(() => {let imageSrcs = []; window.document.querySelectorAll('img').forEach((img) => {if(img.width > 100 && img.src.length) imageSrcs = [...imageSrcs, img.src];}); window.ReactNativeWebView.postMessage(JSON.stringify(imageSrcs));})()`}
+      injectedJavaScript={`
+        (() => {
+          let imageSrcs = [];
+          window.document.querySelectorAll('img').forEach((img) => {
+            if(img.width > 100 && img.src.length) imageSrcs = [...imageSrcs, img.src];
+          }); 
+          window.ReactNativeWebView.postMessage(JSON.stringify(imageSrcs));
+        })()
+      `}
       onMessage={handleOnMessage}
       onError={(event) => console.error(event.nativeEvent)}
     />
