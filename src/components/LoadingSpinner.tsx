@@ -6,7 +6,12 @@ const LoadingSpinner: React.FC = () => {
   const tailwind = useTailwind();
 
   return (
-    <Image style={tailwind('w-full h-full')} source={require('images/cat_spin_dribble.gif')} resizeMode={'contain'} />
+    <Image
+      style={tailwind('w-full h-full')}
+      source={require('images/cat_spin_dribble.gif')}
+      resizeMode={'contain'}
+      key="loading"
+    />
   );
 };
 
