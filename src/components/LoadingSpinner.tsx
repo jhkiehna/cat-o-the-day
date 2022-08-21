@@ -15,4 +15,4 @@ const LoadingSpinner: React.FC = () => {
   );
 };
 
-export default LoadingSpinner;
+export default React.memo(LoadingSpinner);
