@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { View, SafeAreaView, TextInput, Image } from 'react-native';
 import { useTailwind } from 'tailwind-rn';
 
-import { AppTitle, ImageScraper, LoadingSpinner, CatButton } from 'components';
+import { AppTitle, ImageScraper, CatButton, LoadingSpinner } from 'components';
 
 const defaultModifiers = [
   'cute',
@@ -38,7 +38,6 @@ const Home: React.FC = () => {
   const [images, setImages] = React.useState<string[]>([]);
   const [inputText, setInputText] = React.useState<string>(initialModifier);
   const [modifier, setModifier] = React.useState<string>(initialModifier);
-  const [loading, setLoading] = React.useState<boolean>(true);
   const inputRef = React.useRef<TextInput>();
 
   const tailwind = useTailwind();
@@ -46,7 +45,6 @@ const Home: React.FC = () => {
   React.useEffect(() => {
     if (images.length) {
       setDisplayedImage(images[Math.floor(Math.random() * images.length)]);
-      setLoading(false);
     }
   }, [images]);
 
@@ -55,7 +53,7 @@ const Home: React.FC = () => {
     if (modifier !== inputText) return handleSubmit();
 
     // Iterates through array of available images and displays the next one.
-    if (images.length) {
+    if (images.length && displayedImage) {
       const indexOfCurrentImage = images.findIndex((image) => image === displayedImage);
       setDisplayedImage(images[indexOfCurrentImage + 1] ?? images[0]);
     }
@@ -63,8 +61,9 @@ const Home: React.FC = () => {
 
   // Resets images and modifier, which triggers a refetching of images from the scraper.
   async function handleSubmit() {
-    setLoading(true);
-    setImages([]);
+    if (modifier === inputText) return;
+
+    setDisplayedImage(null);
     setModifier(inputText);
     inputRef.current.blur();
   }
@@ -72,16 +71,21 @@ const Home: React.FC = () => {
   return (
     <SafeAreaView style={tailwind('h-full flex flex-col justify-evenly pt-12 main-bg')}>
       <View style={{ display: 'none', width: 0, height: 0 }}>
-        <ImageScraper setImages={setImages} modifier={modifier} images={images} />
+        <ImageScraper setImages={setImages} modifier={modifier} />
       </View>
 
       <AppTitle text="Cat-o-the-Day!!" />
 
       <View style={tailwind('h-1/2 flex justify-center')}>
-        {loading ? (
-          <LoadingSpinner />
+        {displayedImage ? (
+          <Image
+            style={tailwind('w-full h-full')}
+            source={{ uri: displayedImage }}
+            resizeMode={'contain'}
+            key={displayedImage.slice(0, 50)}
+          />
         ) : (
-          <Image style={tailwind('w-full h-full')} source={{ uri: displayedImage }} resizeMode={'contain'} />
+          <LoadingSpinner />
         )}
       </View>
 
