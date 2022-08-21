@@ -7,7 +7,6 @@ import {
   TouchableOpacityProps,
   GestureResponderEvent,
   View,
-  Image,
   ImageBackground,
   Text,
 } from 'react-native';
