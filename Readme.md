@@ -1,4 +1,9 @@
-#Running Locally
+# Description
+
+Test project trying out react native and expo.
+Fetches cat images by loading a hidden webview that hits google images.
+
+# Running Locally
 
 - npm install
 
