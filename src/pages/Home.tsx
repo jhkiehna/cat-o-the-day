@@ -1,6 +1,5 @@
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { View, TextInput, Image, KeyboardAvoidingView, Keyboard, Platform } from 'react-native';
+import { View, TextInput, Image, KeyboardAvoidingView } from 'react-native';
 import { useTailwind } from 'tailwind-rn';
 
 import { AppTitle, ImageScraper, CatButton, LoadingSpinner } from 'components';
@@ -95,15 +94,12 @@ const Home: React.FC = () => {
         onChangeText={(text) => setInputText(text)}
         onEndEditing={handleSubmit}
         onSubmitEditing={handleSubmit}
-        onBlur={() => Keyboard.dismiss()}
         clearButtonMode="while-editing"
       />
 
       <View style={tailwind('self-center w-1/2 border border-solid border-sky-500 rounded')}>
         <CatButton text="Show Me Cat!!" onPress={handleClick} />
       </View>
-
-      {Platform.OS === 'android' && <StatusBar style="auto" />}
     </KeyboardAvoidingView>
   );
 };
