@@ -12,11 +12,11 @@ function App() {
     <TailwindProvider utilities={utilities}>
       <View
         style={{
-          backgroundColor: 'rgb(186, 230, 253)',
+          backgroundColor: '#4daac1',
           paddingTop: Platform.OS === 'ios' ? Constants.statusBarHeight : 0,
         }}
       >
-        <StatusBar style="dark" />
+        <StatusBar style="auto" />
         <Home />
       </View>
     </TailwindProvider>

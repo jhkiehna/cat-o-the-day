@@ -89,7 +89,10 @@ const Home: React.FC = () => {
 
       <TextInput
         ref={inputRef}
-        style={tailwind('self-center w-1/2 border border-solid border-sky-500 rounded py-1 px-2')}
+        style={{
+          ...tailwind('self-center w-1/2 border border-solid border-sky-500 rounded py-1 px-2'),
+          borderColor: '#4daac1',
+        }}
         value={inputText}
         onChangeText={(text) => setInputText(text)}
         onEndEditing={handleSubmit}
@@ -97,7 +100,7 @@ const Home: React.FC = () => {
         clearButtonMode="while-editing"
       />
 
-      <View style={tailwind('self-center w-1/2 border border-solid border-sky-500 rounded')}>
+      <View style={tailwind('self-center w-1/2')}>
         <CatButton text="Show Me Cat!!" onPress={handleClick} />
       </View>
     </KeyboardAvoidingView>
