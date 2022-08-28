@@ -42,11 +42,10 @@ const Home: React.FC = () => {
 
   const tailwind = useTailwind();
 
-  React.useEffect(() => {
-    if (images.length) {
-      setDisplayedImage(images[Math.floor(Math.random() * images.length)]);
-    }
-  }, [images]);
+  async function handleScraperResult(scraperImages: string[]) {
+    setImages(scraperImages);
+    setDisplayedImage(scraperImages[Math.floor(Math.random() * scraperImages.length)]);
+  }
 
   async function handleClick() {
     // Triggers a refetching of images if text input has changed.
@@ -71,7 +70,7 @@ const Home: React.FC = () => {
   return (
     <SafeAreaView style={tailwind('h-full flex flex-col justify-evenly pt-12 main-bg')}>
       <View style={{ display: 'none', width: 0, height: 0 }}>
-        <ImageScraper setImages={setImages} modifier={modifier} />
+        <ImageScraper callback={handleScraperResult} modifier={modifier} />
       </View>
 
       <AppTitle text="Cat-o-the-Day!!" />

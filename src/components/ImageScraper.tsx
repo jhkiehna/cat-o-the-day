@@ -6,22 +6,17 @@ import { WebViewMessageEvent } from 'react-native-webview/lib/WebViewTypes';
 import { fetchCatsFallback } from 'utils';
 
 type ImageScraperProps = {
-  setImages: React.Dispatch<React.SetStateAction<string[]>>;
+  callback: (images: string[]) => void;
   modifier: string;
 };
 
-const ImageScraper: React.FC<ImageScraperProps> = ({ setImages, modifier }) => {
-  function handleOnMessage(event: WebViewMessageEvent) {
-    if (event.nativeEvent.loading) return;
-    setImages(JSON.parse(event.nativeEvent.data));
-  }
-
-  async function fetchCatsFallbackCaller() {
-    const fallbackImages = await fetchCatsFallback(modifier);
-    setImages(fallbackImages);
-  }
-
+const ImageScraper: React.FC<ImageScraperProps> = ({ callback, modifier }) => {
   React.useEffect(() => {
+    async function fetchCatsFallbackCaller() {
+      const fallbackImages = await fetchCatsFallback(modifier);
+      callback(fallbackImages);
+    }
+
     if (Platform.OS === 'web') fetchCatsFallbackCaller();
   }, []);
 
@@ -39,7 +34,7 @@ const ImageScraper: React.FC<ImageScraperProps> = ({ setImages, modifier }) => {
           window.ReactNativeWebView.postMessage(JSON.stringify(imageSrcs));
         })()
       `}
-      onMessage={handleOnMessage}
+      onMessage={(event: WebViewMessageEvent) => callback(JSON.parse(event.nativeEvent.data))}
       onError={(event) => console.error(event.nativeEvent)}
     />
   );
