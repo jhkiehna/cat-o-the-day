@@ -101,7 +101,7 @@ const Home: React.FC = () => {
         <CatButton text="Show Me Cat!!" onPress={handleClick} />
       </View>
 
-      <StatusBar style="auto" />
+      <StatusBar style="auto" translucent={false} />
     </SafeAreaView>
   );
 };
