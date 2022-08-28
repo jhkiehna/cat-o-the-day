@@ -25,7 +25,12 @@ const CatButton: React.FC<CatButtonProps> = ({ text, onPress }) => {
 
   return (
     <Touchable onPress={onPress} accessibilityRole="button">
-      <View style={tailwind('h-10 flex justify-center bg-sky-200 static')}>
+      <View
+        style={{
+          ...tailwind('h-10 flex justify-center static border border-solid rounded'),
+          backgroundColor: '#4daac1',
+        }}
+      >
         <ImageBackground
           source={require('images/cat-paw-vector-19.png')}
           style={tailwind('absolute top-0 left-0 w-2/3 h-full opacity-50')}
